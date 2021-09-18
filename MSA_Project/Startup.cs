@@ -39,6 +39,11 @@ namespace MSA_Project
                 .AddQueryType(d => d.Name("Query"))
                     .AddTypeExtension<StudentQueries>()
                     .AddTypeExtension<ProjectQueries>()
+                .AddMutationType(d => d.Name("Mutation"))
+                    .AddTypeExtension<CommentMutations>()
+                    .AddTypeExtension<ProjectMutations>()
+                    .AddTypeExtension<StudentMutations>()
+
                 .AddType<CommentType>()
                 .AddType<ProjectType>()
                 .AddType<StudentType>();

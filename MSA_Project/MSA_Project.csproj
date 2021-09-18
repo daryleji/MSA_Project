@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+	<RootNamespace>MSA_Project</RootNamespace>
+	<Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
