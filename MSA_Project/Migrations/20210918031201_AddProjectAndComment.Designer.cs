@@ -4,14 +4,16 @@ using MSA_Project.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MSA_Project.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210918031201_AddProjectAndComment")]
+    partial class AddProjectAndComment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -19,7 +21,7 @@ namespace MSA_Project.Migrations
                 .HasAnnotation("ProductVersion", "5.0.10")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("MSA_Project.Models.Comment", b =>
+            modelBuilder.Entity("MSA_Project.Modals.Comment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -50,7 +52,7 @@ namespace MSA_Project.Migrations
                     b.ToTable("Comments");
                 });
 
-            modelBuilder.Entity("MSA_Project.Models.Project", b =>
+            modelBuilder.Entity("MSA_Project.Modals.Project", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -77,9 +79,6 @@ namespace MSA_Project.Migrations
                     b.Property<int>("StudentId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Year")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("StudentId");
@@ -87,7 +86,7 @@ namespace MSA_Project.Migrations
                     b.ToTable("Projects");
                 });
 
-            modelBuilder.Entity("MSA_Project.Models.Student", b =>
+            modelBuilder.Entity("MSA_Project.Modals.Student", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -110,15 +109,15 @@ namespace MSA_Project.Migrations
                     b.ToTable("Students");
                 });
 
-            modelBuilder.Entity("MSA_Project.Models.Comment", b =>
+            modelBuilder.Entity("MSA_Project.Modals.Comment", b =>
                 {
-                    b.HasOne("MSA_Project.Models.Project", "Project")
+                    b.HasOne("MSA_Project.Modals.Project", "Project")
                         .WithMany("Comments")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MSA_Project.Models.Student", "Student")
+                    b.HasOne("MSA_Project.Modals.Student", "Student")
                         .WithMany("Comments")
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -129,9 +128,9 @@ namespace MSA_Project.Migrations
                     b.Navigation("Student");
                 });
 
-            modelBuilder.Entity("MSA_Project.Models.Project", b =>
+            modelBuilder.Entity("MSA_Project.Modals.Project", b =>
                 {
-                    b.HasOne("MSA_Project.Models.Student", "Student")
+                    b.HasOne("MSA_Project.Modals.Student", "Student")
                         .WithMany("Projects")
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -140,12 +139,12 @@ namespace MSA_Project.Migrations
                     b.Navigation("Student");
                 });
 
-            modelBuilder.Entity("MSA_Project.Models.Project", b =>
+            modelBuilder.Entity("MSA_Project.Modals.Project", b =>
                 {
                     b.Navigation("Comments");
                 });
 
-            modelBuilder.Entity("MSA_Project.Models.Student", b =>
+            modelBuilder.Entity("MSA_Project.Modals.Student", b =>
                 {
                     b.Navigation("Comments");
 

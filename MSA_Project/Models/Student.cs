@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MSA_Project.Modals
+namespace MSA_Project.Models
 {
     public class Student
     {
@@ -20,6 +20,9 @@ namespace MSA_Project.Modals
 
         public string ImageURI { get; set; }
 
+        public ICollection<Project> Projects { get; set; } = new List<Project>();
+
+        public ICollection<Comment> Comments { get; set; } = new List<Comment>();
 
     }
 }

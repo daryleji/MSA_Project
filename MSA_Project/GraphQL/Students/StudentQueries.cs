@@ -1,7 +1,7 @@
 ﻿using HotChocolate;
 using HotChocolate.Types;
 using MSA_Project.Data;
-using MSA_Project.Modals;
+using MSA_Project.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
