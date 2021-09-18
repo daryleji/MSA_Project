@@ -1,21 +1,26 @@
-﻿using HotChocolate;
+﻿using System.Linq;
+using HotChocolate;
 using HotChocolate.Types;
 using MSA_Project.Data;
 using MSA_Project.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using MSA_Project.Extensions;
 
-namespace MSA_Project.GraphQL.Students
+namespace MSAYearbook.GraphQL.Students
 {
     [ExtendObjectType(name: "Query")]
     public class StudentQueries
     {
+        [UseAppDbContext]
+        [UsePaging]
         public IQueryable<Student> GetStudents([ScopedService] AppDbContext context)
         {
             return context.Students;
         }
 
+        [UseAppDbContext]
+        public Student GetStudent(int id, [ScopedService] AppDbContext context)
+        {
+            return context.Students.Find(id);
+        }
     }
 }

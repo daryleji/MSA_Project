@@ -8,7 +8,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MSA_Project.Data;
+using MSA_Project.GraphQL.Comments;
+using MSA_Project.GraphQL.Projects;
 using MSA_Project.GraphQL.Students;
+using MSAYearbook.GraphQL.Students;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +37,11 @@ namespace MSA_Project
 
             services.AddGraphQLServer()
                 .AddQueryType(d => d.Name("Query"))
-                    .AddTypeExtension<StudentQueries>();
+                    .AddTypeExtension<StudentQueries>()
+                    .AddTypeExtension<ProjectQueries>()
+                .AddType<CommentType>()
+                .AddType<ProjectType>()
+                .AddType<StudentType>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
