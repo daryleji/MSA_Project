@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Security.Claims;
 using HotChocolate;
 using HotChocolate.Types;
+using HotChocolate.AspNetCore;
+using HotChocolate.AspNetCore.Authorization;
 using MSA_Project.Models;
 using MSA_Project.Data;
 using MSA_Project.Extensions;
@@ -13,16 +17,18 @@ namespace MSA_Project.GraphQL.Projects
     public class ProjectMutations
     {
         [UseAppDbContext]
-        public async Task<Project> AddProjectAsync(AddProjectInput input,
+        [Authorize]
+        public async Task<Project> AddProjectAsync(AddProjectInput input, ClaimsPrincipal claimsPrincipal,
             [ScopedService] AppDbContext context, CancellationToken cancellationToken)
         {
+            var studentIdStr = claimsPrincipal.Claims.First(c => c.Type == "studentId").Value;
             var project = new Project
             {
                 Name = input.Name,
                 Description = input.Description,
                 Link = input.Link,
                 Year = (Year)Enum.Parse(typeof(Year), input.Year),
-                StudentId = int.Parse(input.StudentId),
+                StudentId = int.Parse(studentIdStr),
                 Modified = DateTime.Now,
                 Created = DateTime.Now,
             };
@@ -34,10 +40,21 @@ namespace MSA_Project.GraphQL.Projects
         }
 
         [UseAppDbContext]
-        public async Task<Project> EditProjectAsync(EditProjectInput input,
+        [Authorize]
+        public async Task<Project> EditProjectAsync(EditProjectInput input, ClaimsPrincipal claimsPrincipal,
             [ScopedService] AppDbContext context, CancellationToken cancellationToken)
         {
+            var studentIdStr = claimsPrincipal.Claims.First(c => c.Type == "studentId").Value;
             var project = await context.Projects.FindAsync(int.Parse(input.ProjectId));
+
+            if (project.StudentId != int.Parse(studentIdStr))
+            {
+                throw new GraphQLRequestException(ErrorBuilder.New()
+                    .SetMessage("Not owned by student")
+                    .SetCode("AUTH_NOT_AUTHORIZED")
+                    .Build());
+            }
+
 
             project.Name = input.Name ?? project.Name;
             project.Description = input.Description ?? project.Description;

@@ -4,6 +4,5 @@
         string Name,
         string Description,
         string Link,
-        string Year,
-        string StudentId);
+        string Year);
 }
