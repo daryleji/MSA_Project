@@ -8,7 +8,7 @@ import { ApolloProvider, InMemoryCache, ApolloClient } from '@apollo/client';
 
 
 const graphQLClient = new ApolloClient({
-  uri: 'https://msa-frontend-dj.azurewebsites.net/graphql/',
+  uri: 'https://msa-backend-dj.azurewebsites.net/graphql/',
   cache: new InMemoryCache()
 });
 
