@@ -3,10 +3,20 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { ApolloProvider, InMemoryCache, ApolloClient } from '@apollo/client';
+
+
+const GraphQLClient = new ApolloClient({
+  uri: 'http://msa-yearbook.azurewebsites.net/graphql/',
+  cache: new InMemoryCache()
+});
+
 
 ReactDOM.render(
   <React.StrictMode>
+    <ApolloProvider client={GraphQLClient}>
     <App />
+    </ApolloProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
