@@ -31,7 +31,7 @@
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
-    "generate": "apollo service:download --endpoint=http://msa-yearbook.azurewebsites.net/graphql/ graphql-schema.json | apollo codegen:generate --localSchemaFile=graphql-schema.json --target=typescript --tagName=gql"
+    "generate": "apollo service:download --endpoint=https://dj-backend.azurewebsites.net/graphql/ graphql-schema.json | apollo codegen:generate --localSchemaFile=graphql-schema.json --target=typescript --tagName=gql"
   },
   "eslintConfig": {
     "extends": [
