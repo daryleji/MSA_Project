@@ -8,16 +8,6 @@ import { SubmitPage } from "./Pages/SubmitPage";
 import { Route, Switch } from 'react-router';
 
 
-export const PROJECT = gql`
-query {
-  Projects {
-    nodes {
-      name
-    }
-  }
-}
-`
-
 function App() {
   return (
     <div className="App">

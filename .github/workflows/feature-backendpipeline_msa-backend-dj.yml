@@ -31,7 +31,7 @@ jobs:
       - name: Run Azure webapp deploy action using publish profile credentials
         uses: azure/webapps-deploy@v2
         with:
-          app-name: msa-2021-backend-graphql
-          slot-name: Production
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_0000000000000000000000 }}
-          package: ${{env.DOTNET_ROOT}}/myapp
+          app-name: 'msa-backend-dj'
+          slot-name: 'Production'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_1542F674BEA64E19B1D5271E2DF41086 }}
+          package: .
