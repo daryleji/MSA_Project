@@ -1,13 +1,26 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import { BrowserRouter, Router } from "react-router-dom";
 import reportWebVitals from './reportWebVitals';
+import { ApolloProvider, InMemoryCache, ApolloClient } from '@apollo/client';
+
+
+const graphQLClient = new ApolloClient({
+  uri: 'https://msa-frontend-dj.azurewebsites.net/graphql/',
+  cache: new InMemoryCache()
+});
+
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <BrowserRouter>
+    <ApolloProvider client={graphQLClient}>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </ApolloProvider>
+  </BrowserRouter>,
   document.getElementById('root')
 );
 
